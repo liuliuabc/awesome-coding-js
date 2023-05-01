@@ -6,31 +6,52 @@
 
 ## 删除链表中的节点
 
-给定单链表的头指针和要删除的指针节点，在O(1)时间内删除该节点。
+给定单链表中的一个的指针节点，在O(1)时间内删除该节点。注意，删除节点并不是指从内存中删除它，node是链表中的节点，且不是末尾节点，节点的值都是唯一的。这里的意思是：
+- 给定节点的值不应该存在于链表中。
+- 链表中的节点数应该减少 1。
+- node 前面的所有值顺序相同。
+- node 后面的所有值顺序相同。
 
-- 1.删除的节点不是尾部节点 - 将next节点覆盖当前节点
-- 2.删除的节点是尾部节点且等于头节点，只剩一个节点 - 将头节点置为null
-- 3.删除的节点是尾节点且前面还有节点 - 遍历到末尾的前一个节点删除
-
-只有第三种情况时间复杂度是O(n)，且这种情况只会出现1/n次，所以算法时间复杂度是O(1)
+此题实际并没有真实的删除该节点，而是把当前节点易容成了next节点，然后删除真实的next节点。
+（既然不能先删除自己，那就把自己整容成儿子，再假装自己就是儿子来养活孙子）
 ```js
-    var deleteNode = function (head, node) {
-      if (node.next) {
+    var deleteNode = function (node) {
         node.val = node.next.val;
         node.next = node.next.next;
-      } else if (node === head) {
-        node = null;
-        head = null;
-      } else {
-        node = head;
-        while (node.next.next) {
-          node = node.next;
+   };
+```
+## 删除链表中的节点-变种
+给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。
+```js 
+//双指针
+var deleteNode = function (head, val) {
+    if(head.val==val){
+        head=head.next;
+    }else{
+        var pre=head;
+        var cur=head.next;
+        while(cur&&cur.val!==val){
+            pre=cur;
+            cur=cur.next;
         }
-        node.next = null;
-        node = null;
-      }
-      return node;
-    };
+        pre.next=pre.next.next;
+    }
+    return head;
+};
+
+//单指针
+var deleteNode = function (head, val) {
+    if(head.val==val){
+        head=head.next;
+    }else{
+        var pre=head;
+        while(pre.next&&pre.next.val!==val){
+            pre=pre.next;
+        }
+        pre.next=pre.next.next;
+    }
+    return head;
+};
 ```
 
 ## 删除链表中重复的节点
@@ -47,41 +68,18 @@
 空间复杂度：O(n)
 
 ```js
+    //单指针
     function deleteDuplication(pHead) {
-      const map = {};
-      if (pHead && pHead.next) {
-        let current = pHead;
-        // 计数
-        while (current) {
-          const val = map[current.val];
-          map[current.val] = val ? val + 1 : 1;
-          current = current.next;
-        }
-        current = pHead;
-        while (current) {
-          const val = map[current.val];
-          if (val > 1) {
-            // 删除节点
-            console.log(val);
-            if (current.next) {
-              current.val = current.next.val;
-              current.next = current.next.next;
-            } else if (current === pHead) {
-              current = null;
-              pHead = null;
-            } else {
-              current = pHead;
-              while (current.next.next) {
-                current = current.next;
-              }
-              current.next = null;
-              current = null;
-            }
-
-          } else {
-            current = current.next;
-          }
-        }
+      const map = new Map();
+      var cur=pHead;
+      var pre=null;
+      while (cur) {
+         if(map.has(cur)){
+             pre.next=cur.next;
+         }
+         map.set(cur);
+         pre=cur;
+         cur = cur.next;
       }
       return pHead;
     }

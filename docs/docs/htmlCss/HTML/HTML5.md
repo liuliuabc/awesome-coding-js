@@ -6,7 +6,8 @@
 ## HTML5
 HTML5是HTML的第5个版本。
 - HTML5 拥有更强的语义
-- 图形以及多媒体元素。canvas/video/audio/svg/CSS3-2D/3D转换
+- 图形以及多媒体元素。canvas/video/embed/audio/svg/CSS3-2D/3D转换
+  - video/audio的常用属性：autoplay/controls/loop
   - SVG (Scalable Vector Graphics)SVG 指可伸缩矢量图形，图像在放大或改变尺寸的情况下其图形质量不会有损失， 是一种使用 XML 描述 2D 图形的语言。 
   ```html
   //圆形

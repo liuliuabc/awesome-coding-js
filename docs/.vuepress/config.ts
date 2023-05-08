@@ -11,9 +11,9 @@ export default defineConfig4CustomTheme<ThemeConfig>((ctx) => ({
             {text: '数据结构分类', link: '/docs/dataStructure/'},
             {text: '算法分类', link: '/docs/algorithm/'},
             {text: '前端框架', link: '/docs/framework/'},
-            {text: '基础知识', link: '/docs/JavaScript/'},
+            {text: '基础知识', link: '/docs/base/'},
             {text: 'JavaScript', link: '/docs/JavaScript/'},
-            {text: 'HTML/CSS', link: '/docs/html-css/'},
+            {text: 'HTML/CSS', link: '/docs/htmlCss/'},
         ],
         sidebar: {
             '/docs/JavaScript/': [
@@ -228,7 +228,23 @@ export default defineConfig4CustomTheme<ThemeConfig>((ctx) => ({
                         '/docs/dataStructure/字符串/字符流中第一个不重复的字符',
                     ]
                 },
-            ]
+            ],
+            '/docs/htmlCss/':[
+                '/docs/htmlCss/',
+                {
+                    title: 'CSS',
+                    children: [
+                        '/docs/htmlCss/CSS/基础',
+                    ]
+                },
+                {
+                    title: 'HTML',
+                    children: [
+                        '/docs/htmlCss/HTML/HTML5',
+                        '/docs/htmlCss/HTML/基础',
+                    ]
+                }
+            ],
         },
         codeSwitcher: {
             groups: {
